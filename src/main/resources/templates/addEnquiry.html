@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Insert title here</title>
+ <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">ASHOK IT</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="dashboard">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="add">Add Enquiry</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="viewEnquiry">View Enquieies</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-danger" th:href="@{/logout}">Logout</a>
+        
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<form th:action="@{/add}" th:object="${enquiryForm}" method="post">
+
+<div class="form-group">
+<input type="text" th:field="*{studentName}" placeholder="enter Student Name">
+</div>
+<br>
+<br>
+<div class="form-group">
+<input type="text" th:field="*{contactNo}" placeholder="enter Student Phn No">
+</div>
+<br>
+<br>
+<label for="classmode">ClassMode</label>
+<div class="form-group">
+
+	 <select id="classmode"  th:field="*{classMode}">
+            <option value="">Select</option>
+            <option value="Online" >Online</option>
+            <option value="classroom" >ClassRoom</option>
+	</select>
+</div>
+<br>
+<br>
+<label for="courseName">Course Name</label>
+	<div class="form-group">
+	<select id="courses"  th:field="*{courseName}">
+            <option value="">Select</option>
+            <option th:each="status : ${courseNames}" th:value="${status}" th:text="${status}" ></option>
+ 	</select>
+ 	</div>
+ 	<br>
+<br>
+ 	<label for="status"> Enquiry Status</label>
+ <div class="form-group">
+	<select id="status"  th:field="*{enquiryStatus}">
+            <option value="">Select</option>
+            <option th:each="status : ${statusNames}" th:value="${status}" th:text="${status}" ></option>
+ 	</select>
+ </div>
+ <br>
+<br>
+  <div class="form-group">
+ <button type="submit" class="btn btn-primary">ADD</button>
+ </div>
+</form>
+<p th:text="${mesg}"></p>
+</body>
+</html>

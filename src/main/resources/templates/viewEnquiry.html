@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Custom styles for this template -->
+  <style>
+    /* Add custom styles here */
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">IT</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="dashboard">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="add">Add Enquiry</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="viewEnquiry">View Enquieies</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-danger" th:href="@{/logout}">Logout</a>
+        
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<br>
+<br>
+
+	 <h1>Select a country</h1>
+ 
+
+<select id="state" class="dropdown">
+ <option value="">Select</option>
+
+  <option th:each="status : ${courseNames}" th:value="${status}" th:text="${status}" ></option>
+</select>
+
+<select id="city" class="dropdown">
+ <option value="">Select</option>
+  <option th:each="status : ${statusNames}" th:value="${status}" th:text="${status}" ></option>
+</select>
+
+<select id="country" class="dropdown">
+ <option value="">Select</option>
+  <option value="">-Select-</option>
+	<option value="online">Online</option>
+	<option value="room">Classroom</option>
+</select>
+<div id="result"></div>
+
+<script >
+
+function fetchData() {
+  const selectedCountry =  document.getElementById('country').value;
+  const selectedState = document.getElementById('state').value;
+  const selectedCity = document.getElementById('city').value;
+
+  axios.get('/data', {
+    params: {
+      country: selectedCountry,
+      state: selectedState,
+      city: selectedCity
+    }
+  })
+  .then(function (response) {
+  document.getElementById('result')
+    result.innerHTML = response.data;
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+document.querySelectorAll('.dropdown').forEach(function (dropdown) {
+  dropdown.addEventListener('change', fetchData);
+});
+
+</script>
+
+	
+</body>
+</html>

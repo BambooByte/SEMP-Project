@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+ <div class="container">
+        <h1>Unlock Account</h1>
+        <br>
+        
+      <p> Your Email: 
+  <span th:text="${email}" id="email"></span>
+</p>
+        
+        <form th:action="@{/unlock}" th:object="${unlockAcc}" method="post" >
+
+		<input type="hidden" name="mail" id="mail" th:field="*{email}" />
+            <div class="form-group">
+               
+                <input type="password" class="form-control" id="userTempPass" th:field="*{userTempPass}" placeholder="Temp password">
+            </div>
+            <div class="form-group">
+               
+                <input type="password" class="form-control" id="newPass" th:field="*{newPass}" placeholder="New password">
+            </div>
+            <div class="form-group">
+               
+                <input type="password" class="form-control" id="confirmPass" th:field="*{confirmPass}" placeholder="Confirm password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            
+        </form>
+        <br>
+        <br>
+        <a class="btn btn-primary" href="login" >Login</a>
+        <p class="fw-bold text-center" th:text="${message}"></p>
+    </div>
+    <script>
+  var email = document.getElementById("email").innerText;
+  document.getElementById("mail").value = email;
+</script>
+</body>
+</html>
